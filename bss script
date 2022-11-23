@@ -1,0 +1,944 @@
+
+--LocalPlayer Name
+local Player = game.Players.LocalPlayer
+--Main Stuff
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+OrionLib:MakeNotification({
+	Name = "Loading...",
+	Content = "Loading The UI",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+local Window = OrionLib:MakeWindow({Name = "DreadzHub | Bss", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+hives = game.Workspace.Honeycombs:GetChildren() for i = #hives, 1, -1 do  v = game.Workspace.Honeycombs:GetChildren()[i] if v.Owner.Value == nil then game.ReplicatedStorage.Events.ClaimHive:FireServer(v.HiveID.Value) end end
+OrionLib:MakeNotification({
+	Name = "Loaded!",
+	Content = "Loaded The Bss UI, "..Player.Name.."!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+--Tabs
+local Tab1 = Window:MakeTab({
+	Name = "Links",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Tab2 = Window:MakeTab({
+	Name = "Farms",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Tab3 = Window:MakeTab({
+	Name = "Combat",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Tab4 = Window:MakeTab({
+	Name = "Teleports",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Tab5 = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+--Links
+local Section = Tab1:AddSection({
+	Name = "Links"
+})
+Tab1:AddLabel("Consider Checking Us Out!")
+Tab1:AddButton({
+	Name = "Copy YT Link",
+	Callback = function()
+       setclipboard("https://www.youtube.com/channel/UCqR74O-JloMP2r5X7-0XJQQ?sub_confirmation=1")
+       OrionLib:MakeNotification({
+	Name = "Copied!",
+	Content = "YT Link Copied!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+  	end    
+})
+Tab1:AddButton({
+	Name = "Copy Discord Server Link",
+	Callback = function()
+       setclipboard("https://discord.gg/dzSHV7kGpG")
+              OrionLib:MakeNotification({
+	Name = "Copied!",
+	Content = "Discord Server Link Copied!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+  	end    
+})
+--Farm
+local Section = Tab2:AddSection({
+	Name = "Auto-Farm"
+})
+--Teleport Table
+local teleport_table = {
+S = Vector3.new(-208.951294, 1.5, 176.579224, 1, 0, 0, 0, 1, 0, 0, 0, 1), -- your desired position
+D = Vector3.new(-30.3512802, 1.42874193, 221.074188, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+C = Vector3.new(157.547073, 31.608448, 196.350006, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+B = Vector3.new(146.865021, 2.13494039, 100.725006, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+S2 = Vector3.new(-43.4654312, 18.1220875, -13.5899963, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+B2 = Vector3.new(132.963409, 18.1719551, -25.6000061, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+S3 = Vector3.new(-178.174973, 18.1322384, -9.8549881, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+P = Vector3.new(256.498108, 66.1299973, -207.479324, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+SS = Vector3.new(424.483276, 94.4255676, -174.810959, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+C2 = Vector3.new(-188.5, 65.5000153, -101.595818, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+P2 = Vector3.new(-188.5, 65.5000153, -183.845093, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+PTF = Vector3.new(-328.670013, 65.5, -187.348999, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+R = Vector3.new(-327.459839, 17.5552464, 129.496735, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+MT = Vector3.new(77.6849823, 173.500015, -165.431, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+CF = Vector3.new(-254.478104, 68.9707947, 469.459045, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+PP = Vector3.new(-488.761566, 120.701508, 535.680176, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+}
+--Teleport
+Tab2:AddDropdown({
+	Name = "Fields",
+	Default = "",
+	Options = {"Sunflower Field", "Dandelion Field", "Clover Field", "Blue Flower Field", "Spider Field", "Bamboo Field", "Strawberry Field", "Pineapple Field", "Stump Snail Field", "Cactus Field", "Pumpkin Field", "Pine Tree Forest", "Rose Field", "Mountain Top Field", "Coconut Field", "Pepper Field"},
+	Callback = function(Value)
+OrionLib:MakeNotification({
+	Name = "Teleported!",
+	Content = "Teleported to "..(Value).."!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+getgenv().Teleport = true
+while Value == "Sunflower Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.S)
+wait(60)
+end
+while Value == "Dandelion Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.D)
+wait(60)
+end
+while Value == "Clover Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.C)
+wait(60)
+end
+while Value == "Blue Flower Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.B)
+wait(60)
+end
+while Value == "Spider Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.S2)
+wait(60)
+end
+while Value == "Bamboo Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.B2)
+wait(60)
+end
+while Value == "Strawberry Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.S3)
+wait(60)
+end
+while Value == "Pineapple Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.P)
+wait(60)
+end
+while Value == "Stump Snail Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.SS)
+wait(60)
+end
+while Value == "Cactus Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.C2)
+wait(60)
+end
+while Value == "Pumpkin Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.P2)
+wait(60)
+end
+while Value == "Pine Tree Forest" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.PTF)
+wait(60)
+end
+while Value == "Rose Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.R)
+wait(60)
+end
+while Value == "Mountain Top Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.MTF)
+wait(60)
+end
+while Value == "Coconut Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.CF)
+wait(60)
+end
+while Value == "Pepper Field" and getgenv().Teleport == true do
+local tween_s = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local lp = game.Players.LocalPlayer
+function bypass_teleport(v)
+    if lp.Character and 
+    lp.Character:FindFirstChild('HumanoidRootPart') then
+        local cf = CFrame.new(v)
+        local a = tween_s:Create(lp.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+        a:Play()
+    end
+end
+bypass_teleport(teleport_table.PP)
+wait(60)
+end
+	end    
+})
+Tab2:AddButton({
+	Name = "Stop Teleporting",
+	Callback = function()
+OrionLib:MakeNotification({
+	Name = "Stopped!",
+	Content = "Stopped Teleporting!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+      	getgenv().Teleport = false
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false	
+      	getgenv().Teleport = false		
+  	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Dig",
+	Default = false,
+	Callback = function(Value)
+    getgenv().AutoToolIn = (Value)
+    if getgenv().AutoToolIn then
+        while true do
+            if not getgenv().AutoToolIn then
+                break
+            end
+local pollenTool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
+if pollenTool==nil or pollenTool:FindFirstChild("ClickEvent")==nil then
+end
+            pollenTool.ClickEvent:FireServer()
+            wait(0.1)
+        end
+    end
+	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Collect Tokens",
+	Default = false,
+	Callback = function(Value)
+		getgenv().Token = (Value)
+while getgenv().Token == true do
+for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
+local radius = 55 or Area
+local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
+    if v and not getgenv().Selling and (distance <= radius) then
+    if v:WaitForChild("FrontDecal", 0.02) then
+        if v.FrontDecal.Texture == "rbxassetid://6087969886" then
+            v.Locked = true
+        end
+        if v.FrontDecal.Texture == "rbxassetid://1629547638" and not v.Locked and not getgenv().Raining then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Position)
+            v.Locked = true
+        end
+    end
+	if(distance <= radius) then
+    game.Players.LocalPlayer.Character.Humanoid.MoveToFinished:Connect(function()
+            Reached = true
+    end)
+        if not Walking then
+            Reached = false
+            if not Reached and not v.Locked then
+            game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.Position, v)
+end
+end
+end
+end
+end
+wait(1)
+end
+	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Convert",
+	Default = false,
+	Callback = function(Value)
+getgenv().Convert = (Value)
+while getgenv().Convert == true do
+if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.03 then
+    getgenv().Selling = true
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
+    wait(0.3)
+    local args = {[1] = "ToggleHoneyMaking"}
+    game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
+if not getgenv().MakingHoney then
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
+    getgenv().MakingHoney = true
+    wait()
+end
+while getgenv().MakingHoney do
+    if not getgenv().AutoFarm then
+        break
+    end
+    if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value <= 0 then
+        wait(10)
+        getgenv().Selling = false
+        getgenv().MakingHoney = false
+        break
+    end
+    if (distanceSell >= radiusSell) then
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
+    end
+wait(1)
+end
+end
+wait(60)
+end
+	end    
+})
+local Section = Tab2:AddSection({
+	Name = "Dispensers"
+})
+Tab2:AddToggle({
+	Name = "Auto-Dispense Blueberries",
+	Default = false,
+	Callback = function(Value)
+getgenv().Blue = (Value)
+while getgenv().Blue == true do
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Blueberry Dispenser") 
+wait(1)
+end
+	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Dispense Strawberries",
+	Default = false,
+	Callback = function(Value)
+getgenv().Red = (Value)
+while getgenv().Red == true do
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Strawberry Dispenser") 
+wait(1)
+end
+	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Dispense Treats",
+	Default = false,
+	Callback = function(Value)
+getgenv().Brown = (Value)
+while getgenv().Brown == true do
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Treat Dispenser") 
+wait(1)
+end
+	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Dispense Coconuts",
+	Default = false,
+	Callback = function(Value)
+getgenv().COcoco = (Value)
+while getgenv().COcoco == true do
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Coconut Dispenser") 
+wait(1)
+end
+	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Dispense Glue",
+	Default = false,
+	Callback = function(Value)
+getgenv().White = (Value)
+while getgenv().White == true do
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Glue Dispenser") 
+wait(1)
+end
+	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Use Wealth Clock",
+	Default = false,
+	Callback = function(Value)
+		      	getgenv().l = (Value)
+while getgenv().ll == true do
+	game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer("Wealth Clock")
+wait(0.1)
+end
+	end    
+})
+local Section = Tab2:AddSection({
+	Name = "Field Boosters"
+})
+Tab2:AddToggle({
+	Name = "Auto-Use Regular Field Booster",
+	Default = false,
+	Callback = function(Value)
+		getgenv().lll = (Value)
+while getgenv().lll == true do
+game.ReplicatedStorage.Events.ToyEvent:FireServer("Field Booster")
+wait(0.1)
+end 
+	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Use Red Field Booster",
+	Default = false,
+	Callback = function(Value)
+		getgenv().lll = (Value)
+while getgenv().lll == true do
+game.ReplicatedStorage.Events.ToyEvent:FireServer("Red Field Booster") 
+wait(0.1)
+end 
+	end    
+})
+Tab2:AddToggle({
+	Name = "Auto-Use Blue Field Booster",
+	Default = false,
+	Callback = function(Value)
+		getgenv().lll = (Value)
+while getgenv().lll == true do
+game.ReplicatedStorage.Events.ToyEvent:FireServer("Blue Field Booster")
+wait(0.1)
+end  
+	end    
+})
+--Bssothers
+local Section = Tab3:AddSection({
+	Name = "Auto-Kill Mobs"
+})
+Tab3:AddButton({
+	Name = "Auto-Kill Coconut Crab",
+	Callback = function()
+       OrionLib:MakeNotification({
+	Name = "Auto-Kill Coco Crab",
+	Content = "Loading The Parts...",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+local cocopad = Instance.new("Part", game:GetService("Workspace"))
+cocopad.Name = "Coconut Part"
+cocopad.Anchored = true
+cocopad.Transparency = 1
+cocopad.Size = Vector3.new(10, 1, 10)
+cocopad.Position = Vector3.new(-307.52117919922, 105.91863250732, 467.86791992188)
+wait(1)
+OrionLib:MakeNotification({
+	Name = "Parts Loaded!",
+	Content = "Teleporting To The Parts...",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+wait(2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-307.52117919922, 105.91863250732, 467.86791992188)
+OrionLib:MakeNotification({
+	Name = "Teleported!",
+	Content = "Enjoy!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})		
+  	end    
+})
+Tab3:AddButton({
+	Name = "Auto-Kill Commando Chick",
+	Callback = function()
+              OrionLib:MakeNotification({
+	Name = "Auto-Kill Commando Chick",
+	Content = "Loading The Parts...",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+local chickpad = Instance.new("Part", game:GetService("Workspace"))
+chickpad.Name = "ChickPad Part"
+chickpad.Anchored = true
+chickpad.Transparency = 1
+chickpad.Size = Vector3.new(10, 1, 10)
+chickpad.Position = Vector3.new(515.7393188476562, 70.44476318359375, 163.32728576660156)
+wait(1)
+OrionLib:MakeNotification({
+	Name = "Parts Loaded!",
+	Content = "Teleporting To The Parts...",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+wait(2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(515.7393188476562, 70.44476318359375, 163.32728576660156)
+OrionLib:MakeNotification({
+	Name = "Teleported!",
+	Content = "Enjoy!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})				
+  	end    
+})
+Tab3:AddButton({
+	Name = "Auto-Do Ant Challenge",
+	Callback = function()
+      		OrionLib:MakeNotification({
+	Name = "Auto-Do Ant Challenge",
+	Content = "Loading The Parts...",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+local antpart = Instance.new("Part", workspace)
+antpart.Name = "Ant Autofarm Part"
+antpart.Position = Vector3.new(96, 47, 553)
+antpart.Anchored = true
+antpart.Size = Vector3.new(128, 1, 50)
+antpart.Transparency = 1
+antpart.CanCollide = true
+wait(2)
+OrionLib:MakeNotification({
+	Name = "Parts Loaded!",
+	Content = "Getting Free Ant Pass...",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+wait(2)
+local A_1 = "Free Ant Pass Dispenser"
+local Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+Event:FireServer(A_1)
+OrionLib:MakeNotification({
+	Name = "Got Ant Pass/Didn't",
+	Content = "Starting The Ant Challenge...",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+wait(2)
+local A_1 = "Ant Challenge"
+local Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+Event:FireServer(A_1)
+OrionLib:MakeNotification({
+	Name = "Started Ant Challenge!",
+	Content = "Enjoy!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(96, 47, 553)
+  	end    
+})
+Tab3:AddButton({
+	Name = "Find Vicious Bee",
+	Callback = function()
+       OrionLib:MakeNotification({
+	Name = "Find Vicious Bee",
+	Content = "Found stinger/didn't",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})	
+			local vichumanoid = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+			for i,v in next, game.workspace.Particles:GetChildren() do
+				for x in string.gmatch(v.Name, "Vicious") do
+					if string.find(v.Name, "Vicious") then
+						api.tween(1,CFrame.new(v.Position.x, v.Position.y, v.Position.z)) task.wait(1)
+						api.tween(0.5, CFrame.new(v.Position.x, v.Position.y, v.Position.z)) task.wait(.5)
+					end
+				end
+			end
+			for i,v in next, game.workspace.Particles:GetChildren() do
+				for x in string.gmatch(v.Name, "Vicious") do
+                    while kocmoc.toggles.killvicious and temptable.detected.vicious do task.wait() if string.find(v.Name, "Vicious") then
+                        for i=1, 4 do temptable.float = true vichumanoid.CFrame = CFrame.new(v.Position.x+10, v.Position.y, v.Position.z) task.wait(.3)
+                        end
+                    end end
+                end
+			end
+  	end    
+})
+--teleports
+local Section = Tab4:AddSection({
+	Name = "Teleport To Player"
+})
+
+Tab4:AddTextbox({
+	Name = "Teleport To Player",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(Value)
+		    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Value].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,1)
+    print("Teleported to",Value)
+OrionLib:MakeNotification({
+	Name = "Teleported To...",
+	Content = (Value),
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+	end	  
+})
+
+--misc
+local Section = Tab5:AddSection({
+	Name = "Miscellaneous Hack"
+})
+ Tab5:AddButton({
+	Name = "Start Stickbug Game",
+	Callback = function()
+      	local A_1 = "StartFreeStickBugEvent"
+local Event = game:GetService("ReplicatedStorage").Events.SelectNPCOption
+Event:FireServer(A_1)
+        OrionLib:MakeNotification({
+	Name = "Started Stickbug Event!",
+	Content = "Enjoy!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+  	end    
+})
+Tab5:AddButton({
+	Name = "Redeem All Codes",
+	Callback = function()
+       local beeswarmsim = {"Banned","1MLikes","WordFactory","Millie","Troggles","Luther","CarmensAnDiego","Dysentery","Jumpstart","Mocito100T","RedMarket","Cubly","500mil","BeesBuzz123","ClubBean","ClubConverters","Dicord100K","GumdropsForScience","Marshmallow","SecretProfileCode","Sure","Teespring","Wax","Wink","Buzz","Nectar","38217","Bopmaster","Cog","Connoisseur","Crawlers","Roof"}
+for i ,v in pairs(beeswarmsim) do
+game:GetService("ReplicatedStorage").Events.PromoCodeEvent:FireServer(v)
+end
+OrionLib:MakeNotification({
+	Name = "Redeemed All Codes!",
+	Content = " ",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})	
+  	end    
+})
+Tab5:AddButton({
+	Name = "Start Quests",
+	Callback = function()
+OrionLib:MakeNotification({
+	Name = "Starting New Quests!",
+	Content = "Dont Move, "..Player.Name.."!",
+	Image = "rbxassetid://4483345998",
+	Time = 3
+})
+      		    for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
+        if v.Name ~= "Ant Challenge Info" and v.Name ~= "Bubble Bee Man 2" and v.Name ~= "Wind Shrine" and v.Name ~= "Gummy Bear" then if v:FindFirstChild("Platform") then if v.Platform:FindFirstChild("AlertPos") then if v.Platform.AlertPos:FindFirstChild("AlertGui") then if v.Platform.AlertPos.AlertGui:FindFirstChild("ImageLabel") then
+            image = v.Platform.AlertPos.AlertGui.ImageLabel
+            button = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.ActivateButton.MouseButton1Click
+            if image.ImageTransparency == 0 then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z)
+                    task.wait(1)
+                else
+                    api.tween(2,CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z))
+                    task.wait(3)
+                end
+                for b,z in next, getconnections(button) do    z.Function()    end
+                task.wait(8)
+                if image.ImageTransparency == 0 then
+                    for b,z in next, getconnections(button) do    z.Function()    end
+                end
+                task.wait(2)
+            end
+        end     
+
+end
+end
+end
+end
+  	end    
+})
+local Section = Tab5:AddSection({
+	Name = "Treats"
+})
+Tab5:AddButton({
+	Name = "Buy 1 Treat",
+	Callback = function()
+local A_1 = "Purchase"
+local A_2 = 
+{
+	["Type"] = "Treat", 
+	["Amount"] = 1, 
+	["Category"] = "Eggs"
+}
+local Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+Event:InvokeServer(A_1, A_2)	
+  	end    
+})
+Tab5:AddButton({
+	Name = "Buy 10,000 Treats",
+	Callback = function()
+local A_1 = "Purchase"
+local A_2 = 
+{
+	["Type"] = "Treat", 
+	["Amount"] = 10000, 
+	["Category"] = "Eggs"
+}
+local Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+Event:InvokeServer(A_1, A_2)	
+  	end    
+})
+Tab5:AddButton({
+	Name = "Buy 100,000 Treats",
+	Callback = function()
+local A_1 = "Purchase"
+local A_2 = 
+{
+	["Type"] = "Treat", 
+	["Amount"] = 100000, 
+	["Category"] = "Eggs"
+}
+local Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+Event:InvokeServer(A_1, A_2)	
+  	end    
+})
+Tab5:AddButton({
+	Name = "Buy 1,000,000 Treats",
+	Callback = function()
+local A_1 = "Purchase"
+local A_2 = 
+{
+	["Type"] = "Treat", 
+	["Amount"] = 1000000, 
+	["Category"] = "Eggs"
+}
+local Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+Event:InvokeServer(A_1, A_2)	
+  	end    
+})
+Tab5:AddButton({
+	Name = "Buy 10,000,000 Treats",
+	Callback = function()
+local A_1 = "Purchase"
+local A_2 = 
+{
+	["Type"] = "Treat", 
+	["Amount"] = 10000000, 
+	["Category"] = "Eggs"
+}
+local Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+Event:InvokeServer(A_1, A_2)	
+  	end    
+})
+Tab5:AddButton({
+	Name = "Buy 100,000,000 Treats",
+	Callback = function()
+local A_1 = "Purchase"
+local A_2 = 
+{
+	["Type"] = "Treat", 
+	["Amount"] = 100000000, 
+	["Category"] = "Eggs"
+}
+local Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+Event:InvokeServer(A_1, A_2)	
+  	end    
+})
+
+local Section = Tab5:AddSection({
+	Name = "Player Hacks"
+})
+Tab5:AddSlider({
+	Name = "SpeedPower",
+	Min = 0,
+	Max = 500,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Speed",
+	Callback = function(s)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+	end    
+})
+Tab5:AddSlider({
+	Name = "JumpPower",
+	Min = 0,
+	Max = 250,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "JumpPower",
+	Callback = function(j)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = j
+	end    
+})
+Tab5:AddSlider({
+	Name = "HipHeight",
+	Min = 0,
+	Max = 50,
+	Default = 2,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "HipHeight",
+	Callback = function(h)
+		game.Players.LocalPlayer.Character.Humanoid.HipHeight = h
+	end    
+})
+ 
+OrionLib:Init()
+--end
